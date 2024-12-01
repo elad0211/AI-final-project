@@ -22,7 +22,9 @@ public class Player : MonoBehaviour
     public int bullets;
     public Image [] bulletsSprite;
     public bool hasCannon;
-    public  void ChooseAction(int actionIndex)
+    public int turn = 0;
+
+    public void ChooseAction(int actionIndex)
     {
         switch (actionIndex)
         {

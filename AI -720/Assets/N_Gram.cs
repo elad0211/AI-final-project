@@ -116,7 +116,7 @@ public class N_Gram : AI_BehaviorTree
         }
 
         //If neither player nor AI have bullets, reload.
-        if (playerBullets == 0 && bullets == 0)
+        if ((playerBullets == 0 && bullets == 0 ) && turn > 2)
         {
             Debug.Log("Both player have no ammo, Ngram chose to reload");
 

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public N_Gram player2;
     public AI_BehaviorTree dumbAI;
     public bool AI_VS_AI;
+    public int numberOfAiGames = 100;
     // Start is called before the first frame update
     int NgramWins;
     int dumbWins;
@@ -81,9 +82,16 @@ public class GameManager : MonoBehaviour
             ResetGame();
 
         }
+        player1.turn++;
+        player2.turn++;
+        dumbAI.turn++;
+
     }
     public void ResetGame()
     {
+        player1.turn=0;
+        player2.turn=0;
+        dumbAI.turn=0; 
         player1.bullets = 0;
         player2.bullets = 0;
         dumbAI.bullets = 0;
@@ -138,28 +146,32 @@ public class GameManager : MonoBehaviour
 
     public void AivsAIAct()
     {
-        player2.ChooseActionAI();
-
-        player1.action = dumbAI.ChooseActionAI();
-        switch (player1.action)
+        for (int i = 0; i < numberOfAiGames; i++)
         {
-            case Action.s:
-                player2.LogInput('s');
-                break;
-            case Action.r:
-                player2.LogInput('r');
-                break;
-            case Action.b:
-                player2.LogInput('b');
-                break;
-            case Action.z:
-                player2.LogInput('z');
-                break;
-            default:
-            case Action.OutOfAmmo:
-                break;
+            player2.ChooseActionAI();
+
+            player1.action = dumbAI.ChooseActionAI();
+            switch (player1.action)
+            {
+                case Action.s:
+                    player2.LogInput('s');
+                    break;
+                case Action.r:
+                    player2.LogInput('r');
+                    break;
+                case Action.b:
+                    player2.LogInput('b');
+                    break;
+                case Action.z:
+                    player2.LogInput('z');
+                    break;
+                default:
+                case Action.OutOfAmmo:
+                    break;
+            }
+            CalcResult();
         }
-        CalcResult();
+   
     }
 
 }

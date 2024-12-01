@@ -35,7 +35,7 @@ public class AI_BehaviorTree : Player
         {
             //If AI has bullets but player does not
             // OR player is about to get bazooka, shoot
-            if (playerBullets == 0 || playerBullets == 5)
+            if ((playerBullets == 0 || playerBullets == 5)&&turn>2)
             {
                 action = GameNamespace.Action.s;
                 return action;
