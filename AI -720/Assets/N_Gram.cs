@@ -27,7 +27,7 @@ public class N_Gram : AI_BehaviorTree
 {
     public Dictionary<string, KeyDataRecord> data = new Dictionary<string, KeyDataRecord>(); // Holds frequency data for each n-gram sequence
     public string currentRecord = ""; // Tracks the most recent sequence of moves
-    int nValue = 2; // The length of sequences to track (n-gram size)
+    int nValue = 4; // The length of sequences to track (n-gram size)
 
     // Registers a new sequence in the n-gram data
     public void register(string sequence)

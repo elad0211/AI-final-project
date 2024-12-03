@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameNamespace;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+    public Image WinorLose;
+
     public Player player1;
     public N_Gram player2;
     public AI_BehaviorTree dumbAI;
@@ -15,10 +17,25 @@ public class GameManager : MonoBehaviour
     int dumbWins;
     public void CalcResult()
     {
+        WinorLose.color = Color.white;
 
         Debug.Log("Player 1 action: " + player1.action);
         Debug.Log("Player 2 action: " + player2.action);
-        if (player1.action == player2.action)
+        if(player1.action==Action.b && player2.action == Action.r)
+        {
+            Debug.Log("Player 2 action reloaded");
+            player2.Reload();
+
+        }
+        else if (player2.action == Action.b && player1.action == Action.r)
+        {
+            Debug.Log("Player 1 action reloaded");
+            if (AI_VS_AI)
+            {
+                dumbAI.Reload();
+            }
+        }
+        else if (player1.action == player2.action)
         {
             if(player1.action==Action.s)
             {
@@ -41,12 +58,14 @@ public class GameManager : MonoBehaviour
         else if (player1.action == Action.r && player2.action == Action.s)
         {
             NgramWins++;
+            WinorLose.color = Color.red;
             Debug.Log("Robocowboy cought you reloading! git gud, Player 2 WON!");
             ResetGame();
         }
         else if (player2.action == Action.r && player1.action == Action.s)
         {
             dumbWins++;
+            WinorLose.color = Color.green;
             Debug.Log("Robocowboy is dead! You win!");
             ResetGame();
         }
@@ -69,6 +88,7 @@ public class GameManager : MonoBehaviour
         else if (player1.action == Action.z)
         {
             dumbWins++;
+            WinorLose.color = Color.green;
 
             Debug.Log("Player 1 BAZUUKA KILL!");
             ResetGame();
@@ -77,7 +97,7 @@ public class GameManager : MonoBehaviour
         else if (player2.action == Action.z)
         {
             NgramWins++;
-
+            WinorLose.color = Color.red;
             Debug.Log("player 2 BAZUUKA KILL!");
             ResetGame();
 
@@ -96,8 +116,8 @@ public class GameManager : MonoBehaviour
         player2.bullets = 0;
         dumbAI.bullets = 0;
         Debug.Log("Total game = " + (dumbWins + NgramWins) +
-            "Dumb AI / Player won: " +dumbWins
-            + "Ngram won: " + NgramWins);
+            " Dumb AI / Player won: " +dumbWins
+            + " Ngram won: " + NgramWins);
         player2.currentRecord = "";
         for (int i = 0; i < player1.bulletsSprite.Length; i++)
         {
